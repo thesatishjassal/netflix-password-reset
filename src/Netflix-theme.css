@@ -61,17 +61,17 @@ span {
   font-weight: 900;
 }
 .main-heading {
-  font-size: 24px;
+  font-size: 26px;
 }
 .sub-heading {
-  font-size: 14px;
+  font-size: 156px;
   color: var(--text-decription);
   font-weight: 400;
 }
 /* Authentication Card */
 .auth_card {
   display: block;
-  width: 400px !important;
+  width: 450px !important;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: var(--border-radius);
   border: none;
@@ -86,8 +86,8 @@ section.rs-container {
   background-color: #ffffff !important;
 }
 .rs-nav-item {
-  padding: 8px 0px;
-  font-size: 13px !important;
+  padding: 8px 0;
+  font-size: 16px!important;
   margin-right: 25px;
   color: var(--font-color);
 }
@@ -372,7 +372,7 @@ img.zomato-banner {
 }
 .error-message {
   color: #e23744;
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 0.5em;
 }
 input:-internal-autofill-selected {
@@ -422,10 +422,7 @@ nav.netflix-navbar {
   width: 100%;
 }
 .cta.another-cta {
-  font-size: 12px;
-}
-.cta.another-cta {
-  font-size: 12px;
+  font-size: 14px;
   color: #1675e0;
 }
 select.form-control {
