@@ -1,0 +1,514 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+/* Font Variables */
+:root {
+  --font-family: "Poppins", sans-serif;
+  --font-color: #ffffff; /* Changed to var(--font-color) for better contrast */
+  --cta-color: #e50914; /* Netflix red */
+  --cta-color-hover: #c11119; /* Slightly darker red for hover */
+  --input-height: 60px;
+  --input-font-size: 17px;
+  --input-padding: 0 20px;
+  --btn-height: 50px;
+  --btn-font-size: 14px;
+  --btn-font-weight: 600;
+  --shadow-color: rgba(0, 0, 0, 0); /* Darker shadow for depth */
+  --border-radius: 4px; /* Slightly smaller radius for a modern look */
+  --text-decription: #bbbbbb;
+}
+
+/* Global Styles */
+* {
+  font-family: var(--font-family);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  color: var(--font-color);
+}
+
+/* Font Weights */
+.poppins-thin {
+  font-weight: 100;
+}
+.poppins-extralight {
+  font-weight: 200;
+}
+.poppins-light {
+  font-weight: 300;
+}
+.poppins-regular {
+  font-weight: 400;
+}
+.poppins-medium {
+  font-weight: 500;
+}
+.poppins-semibold {
+  font-weight: 600;
+}
+.poppins-bold {
+  font-weight: 700;
+}
+.poppins-extrabold {
+  font-weight: 800;
+}
+.poppins-black {
+  font-weight: 900;
+}
+.main-heading {
+  font-size: 24px;
+}
+.sub-heading {
+  font-size: 14px;
+  color: var(--text-decription);
+  font-weight: 400;
+}
+/* Authentication Card */
+.auth_card {
+  display: block;
+  width: 400px !important;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: var(--border-radius);
+  border: none;
+}
+section.rs-container {
+  background-color: rgb(0 0 0 / 74%);
+}
+.rs-nav-item.rs-nav-item-active {
+  color: #ffffff !important;
+}
+.rs-nav-subtle .rs-nav-item.rs-nav-item-active:before {
+  background-color: #ffffff !important;
+}
+.rs-nav-item {
+  padding: 8px 0px;
+  font-size: 13px !important;
+  margin-right: 25px;
+  color: var(--font-color);
+}
+.panel-body {
+  padding: 25px 30px;
+}
+.auth_card input {
+  height: var(--input-height);
+  width: 100%;
+  font-size: var(--input-font-size);
+  padding: var(--input-padding);
+  font-weight: 500;
+  border-radius: var(--border-radius);
+}
+
+/* Buttons */
+button.btn {
+  display: block;
+  width: 100%;
+  text-align: center;
+  line-height: var(--btn-height);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  height: var(--btn-height);
+  padding: 0 2rem;
+  color: var(--font-color);
+  background-color: var(--cta-color);
+  box-shadow: 0 1px 3px 0 var(--shadow-color);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border-radius: var(--border-radius);
+}
+
+/* Input Styles */
+.border-botton-none {
+  border-bottom: 0;
+}
+.form-container {
+  margin: 20px auto;
+}
+.mb-4 {
+  margin-bottom: 14px;
+}
+
+/* Links and Text */
+a.cta,
+span.cta {
+  color: var(--cta-color);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.div-25 {
+  max-width: 25%;
+  border: 1px solid #1d1d1d;
+  margin-bottom: 40px !important;
+  border-radius: var(--border-radius);
+}
+
+p.action-text {
+  font-size: 13px;
+  line-height: 1.45;
+  margin-bottom: 10px;
+  padding-right: 4px;
+}
+
+p.term-cond-text {
+  font-size: 12px;
+  word-spacing: 0.5px;
+}
+
+p.refrral-label {
+  font-size: 14px;
+  line-height: 2;
+  margin: 15px 0;
+  font-weight: 300;
+  color: #505052;
+}
+
+p.refrral-label a.cta {
+  font-weight: 400;
+}
+
+/* Floating Label Input */
+.floating-label-input {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.floating-label-input input {
+  background: transparent;
+  outline: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+.floating-label-input label {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  font-size: 14px;
+  color: #aaa;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+  background: var(--font-color);
+  padding: 0 4px;
+}
+
+.floating-label-input.focused label,
+.floating-label-input label.active {
+  top: -6px;
+  font-size: 12px;
+  color: #333;
+}
+
+.floating-label-input input:focus + label {
+  color: var(--font-color);
+}
+
+.form-control.focus {
+  border: none;
+}
+
+.rs-input:focus,
+.rs-input:hover:not(:disabled) {
+  border-color: #d4d5d9;
+}
+
+.rs-input:focus {
+  outline: none;
+}
+
+.rs-btn:focus,
+.rs-btn:hover {
+  background-color: var(--cta-color-hover);
+  color: var(--font-color);
+}
+
+.outline-btn:focus,
+.outline-btn:hover {
+  color: #1a1919;
+}
+.outline-btn span {
+  color: var(--cta-color);
+  font-size: 18px;
+}
+/* Icons and Images */
+img.swiggy-icon {
+  max-width: 70px;
+  border-radius: 10%;
+}
+
+.otp_container {
+  background: #f2f1f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  font-size: 24px;
+  color: var(--cta-color);
+}
+
+.otp_container svg.rs-icon {
+  font-size: 26px;
+  color: var(--cta-color);
+}
+
+label.edit_mobilenumber {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 8px;
+  font-size: 12px;
+}
+
+.back-arrow {
+  display: block;
+  margin: 5px 0 15px;
+}
+
+.back-arrow svg.rs-icon {
+  color: #535665;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+p.action-text span.cta.phonenumber {
+  font-size: 14px;
+  padding-left: 2px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.auth_container {
+  position: relative;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s forwards;
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.loginform-container,
+.otpverification-container,
+.registration-form,
+.otpverification-container {
+  transition: all 0.5s ease;
+}
+#mb-5 {
+  margin-bottom: 30px;
+}
+.rs-divider-horizontal {
+  margin: 0px 0;
+}
+.outline-btn {
+  display: block;
+  width: 100%;
+  background-color: transparent !important;
+  border: 1px solid #e5e5ea;
+  color: #1a1919;
+  text-align: center;
+  line-height: var(--btn-height);
+  font-size: var(--btn-font-size);
+  font-weight: var(--btn-font-weight);
+  height: var(--btn-height);
+  padding: 0 2rem;
+  box-shadow: 0 1px 3px 0 var(--shadow-color);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border-radius: var(--border-radius);
+}
+.text-center {
+  text-align: center;
+  line-height: 2;
+}
+img.zomato-banner {
+  width: 100%;
+  height: auto;
+}
+.otp-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.otp-container input {
+  border: 1px solid #e5e5ea;
+}
+.error-border {
+  border-color: #e23744 !important;
+}
+.error-message {
+  color: #e23744;
+  font-size: 12px;
+  margin-top: 0.5em;
+}
+input:-internal-autofill-selected {
+  appearance: menulist-button;
+  background-image: none !important;
+  background-color: light-dark(
+    rgb(232, 240, 254),
+    rgba(70, 90, 126, 0.4)
+  ) !important;
+  color: fieldtext !important;
+}
+.otp-container {
+  display: flex;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+.otp-container input {
+  border: 1px solid #e5e5ea;
+  padding-left: 6px;
+  padding-right: 6px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 500;
+}
+body {
+  background-image: url("../assets/netflix-bg-banner.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+.rs-stack-item.show-grid.rs-row {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+.bold {
+  font-weight: 500;
+}
+nav.netflix-navbar {
+  background: transparent;
+  position: absolute;
+  width: 100%;
+}
+.cta.another-cta {
+  font-size: 12px;
+}
+.cta.another-cta {
+  font-size: 12px;
+  color: #1675e0;
+}
+select.form-control {
+  background: transparent;
+  outline: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  height: var(--input-height);
+  width: max-content;
+  border: 1px solid var(--rs-border-primary);
+  padding: 0px 4px;
+}
+.phonenumber-flex {
+  display: flex;
+}
+.rs-nav-horizontal .rs-nav-bar {
+  bottom: 0px;
+  position: absolute;
+  width: 100%;
+}
+select.form-control {
+  color: var(--font-color) !important;
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+::placeholder {
+  color: var(--font-color);
+}
+input#rs-\:r1f\: {
+  border-left: none !important;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.codepicker.rs-stack .rs-picker div {
+  background-color: transparent !important;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.codepicker.rs-stack .rs-picker {
+  display: block !important;
+  width: 100% !important;
+}
+.rs-picker-default
+  .rs-picker-toggle.rs-btn
+  .rs-picker-toggle-indicator
+  .rs-picker-caret-icon,
+.rs-picker-default
+  .rs-picker-toggle.rs-btn
+  .rs-picker-toggle-indicator
+  .rs-picker-clean {
+  top: 18px;
+}
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value,
+.rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+  color: var(--font-color) !important;
+}
+.rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle-active,
+.rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle:focus,
+.rs-picker-default:not(.rs-picker-disabled) .rs-picker-toggle:hover {
+  border-color: var(--font-color) !important;
+}
+.rs-picker-select-menu-item.rs-picker-select-menu-item-active {
+  background-color: var(--rs-listbox-option-selected-bg) !important;
+  color: var(--cta-color) !important;
+}
+.rs-picker-select-menu-item.rs-picker-select-menu-item-focus, .rs-picker-select-menu-item:focus, .rs-picker-select-menu-item:hover {
+  background-color: color(srgb 0.19 0.19 0.19 / 0.5) !important;
+  color: #e50914 !important;
+}
+.rs-nav-subtle.rs-nav-horizontal .rs-nav-bar {
+  border-top: 2px solid #f7f7fa47 !important;
+}
+.rs-nav-item {
+  color: #ffffff70;
+}
+.rs-picker-popup {
+  background-color: #0e0e0e;
+}
+.rs-picker-select-menu-item {
+  color: #ffffff !important;
+}
