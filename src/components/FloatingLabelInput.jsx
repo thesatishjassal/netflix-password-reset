@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Input } from "rsuite";
+import { Input, InputGroup } from "rsuite";
 
 const FloatingLabelInput = ({
   label,
@@ -7,10 +7,11 @@ const FloatingLabelInput = ({
   value,
   onChange,
   onBlur,
-  error,     
-  touched,  
+  error,
+  touched,
   disabled,
-  placeholder
+  placeholder,
+  addon , // Default value for the addon
 }) => {
   const [focused, setFocused] = useState(false);
 
@@ -20,20 +21,24 @@ const FloatingLabelInput = ({
 
   return (
     <div className={`floating-label-input ${focused ? "focused" : ""}`}>
-      <Input
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onFocus={() => setFocused(true)}
-        onBlur={(e) => {
-          setFocused(value !== "");
-          onBlur(e);  
-        }}
-        onChange={onChange}
-        size="lg"
-        className={`form-control ${error && touched ? "error-border" : ""}`}
-        disabled={disabled}
-      />
+      <InputGroup inside>
+        <InputGroup.Addon>{addon}</InputGroup.Addon>
+        <Input
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onFocus={() => setFocused(true)}
+          onBlur={(e) => {
+            setFocused(value !== "");
+            onBlur(e);
+          }}
+          onChange={onChange}
+          size="lg"
+          className={`form-control ${error && touched ? "error-border" : ""}`}
+          disabled={disabled}
+          autoComplete="off"
+        />
+      </InputGroup>
       {error && touched && <div className="error-message">{error}</div>}
     </div>
   );

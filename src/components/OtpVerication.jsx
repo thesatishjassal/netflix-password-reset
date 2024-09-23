@@ -11,15 +11,19 @@ const OtpVerification = ({
   handleResendClick,
   timeLeft,
   handleBackClick,
+  formik ,
+  onSubmit
 }) => {
   const [otpVerified, setOtpVerified] = useState(false);
- 
+
   const handleOtpVerification = (otpVerified, otp) => {
+    const cleanOtp = otp.replace(/['"]+/g, '');  // Clean any quotes
     if (otpVerified) {
       setOtpVerified(true);
-      console.log("OTP Verified:", otp); // Handle successful verification
+      console.log("OTP Verified:", cleanOtp); // Handle successful verification
+      onSubmit({ otp: cleanOtp });
     } else {
-      console.log("Incorrect OTP:", otp); // Handle incorrect OTP
+      console.log("Incorrect OTP:", cleanOtp); // Handle incorrect OTP
       setOtpVerified(false);
     }
   };
@@ -46,7 +50,11 @@ const OtpVerification = ({
         </div>
       </Stack>
       <Divider className="div-25" />
-      <OtpInput onOtpVerification={handleOtpVerification} />
+      <OtpInput
+        onOtpVerification={handleOtpVerification}
+        error={formik.errors.otp}
+        touched={formik.touched.otp}
+      />
       <Button
         startIcon={otpVerified ? <CheckRoundIcon /> : ""}
         type="submit"
@@ -56,6 +64,7 @@ const OtpVerification = ({
           backgroundColor: otpVerified ? "#4CAF50" : "",
           transition: "background-color 0.3s ease-in-out",
         }}
+        onClick={formik.handleSubmit}
       >
         {otpVerified ? "OTP Verified" : "Verify OTP"}
       </Button>

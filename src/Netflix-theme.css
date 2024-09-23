@@ -452,6 +452,7 @@ select.form-control {
 }
 ::placeholder {
   color: var(--font-color);
+  font-size: 15px;
 }
 input#rs-\:r1f\: {
   border-left: none !important;
@@ -508,4 +509,32 @@ input#rs-\:r1f\: {
 }
 .rs-picker-select-menu-item {
   color: #ffffff !important;
+}
+.countryCode-flex input#rs-\:rr\: {
+  width: 90px;
+}
+.countryCode-flex {
+  display: flex;
+}
+input#countryCode {
+  width: 50px;
+  background: transparent;
+  outline: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--font-color);
+}
+.rs-input-group.rs-input-group-inside, .rs-input {
+  background-color: transparent !important;
+}
+.rs-input-group:focus-within, .rs-input-group:not(.rs-input-group-disabled).rs-input-group-focus, .rs-input-group:not(.rs-input-group-disabled):hover {
+  border-color: #ffffff !important;
+}
+span.rs-input-group-addon {
+  padding: 0 12px !important;
+  color: #fff !important;
+}
+input#phoneNumber {
+  color: #fff;
 }

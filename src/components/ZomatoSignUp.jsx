@@ -12,6 +12,7 @@ import MessageIcon from "@rsuite/icons/Message";
 import { SelectPicker } from "rsuite";
 import { countryData } from "../components/ContryData";
 import * as Yup from "yup";
+import { Input, InputGroup, Whisper, Tooltip } from "rsuite";
 
 const ZomatoSignUp = () => {
   const [signupData, setSignupData] = useState(null); // State to store signup form data
@@ -22,16 +23,28 @@ const ZomatoSignUp = () => {
   const [activeTab, setActiveTab] = useState("1");
 
   const validationSchema = Yup.object().shape({
-    email: activeTab === "1" ? Yup.string().email('Invalid email').required('Email is required') : Yup.string(),
-    phoneNumber: activeTab === "3" ? Yup.string().required('Phone number is required') : Yup.string(),
-    countryCode: activeTab === "3" ? Yup.string().required('Country code is required') : Yup.string(),
+    email:
+      activeTab === "1"
+        ? Yup.string().email("Invalid email").required("Email is required")
+        : Yup.string(),
+    phoneNumber:
+      activeTab === "3"
+        ? Yup.string().required("Phone number is required")
+        : Yup.string(),
+    countryCode:
+      activeTab === "3"
+        ? Yup.string().required("Country code is required")
+        : Yup.string(),
+        otp: Yup.string()
+        .matches(/^\d{6}$/, "OTP must be exactly 6 digits"),
   });
-  
+
   const formik = useFormik({
     initialValues: {
       email: "",
       phoneNumber: "",
       countryCode: "",
+      otp: "",
     },
     validationSchema,
     onSubmit: (values) => {
@@ -90,8 +103,10 @@ const ZomatoSignUp = () => {
     setActiveTab("3");
   };
 
-
   const handleOtpSubmit = (otpValues) => {
+    const trimmedOtp = otpValues.trim(); // If otpValues is a string
+    console.log("OTP Values:", trimmedOtp);
+    formik.setFieldValue("otp", otpValues.trim());
     const combinedData = {
       ...signupData, // Include the name and email from the signup form
       otp: otpValues.otp, // Include the OTP value
@@ -193,6 +208,7 @@ const ZomatoSignUp = () => {
                         error={formik.errors.phoneNumber}
                         touched={formik.touched.phoneNumber}
                         placeholder="Enter Your Phone Number"
+                        addon={formik.values.countryCode} // Dynamic value
                       />
                     </div>
                   </Tabs.Tab>
@@ -215,6 +231,7 @@ const ZomatoSignUp = () => {
               timeLeft={timeLeft}
               showOtpVerification={showOtpVerification}
               handleBackClick={handleBackClick}
+              formik={formik}
             />
           </form>
         </div>
