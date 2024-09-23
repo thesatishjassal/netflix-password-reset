@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Button, Divider, Stack } from "rsuite";
 import ArrowBackIcon from "@rsuite/icons/ArowBack";
 import EmailFillIcon from "@rsuite/icons/EmailFill";
-import OtpInput from "./OtpInput";
 import CheckRoundIcon from "@rsuite/icons/CheckRound";
+import WarningRoundIcon from "@rsuite/icons/WarningRound";
 
 const OtpVerification = ({
   showOtpVerification,
@@ -11,22 +11,71 @@ const OtpVerification = ({
   handleResendClick,
   timeLeft,
   handleBackClick,
-  formik ,
-  onSubmit
+  formik,
+  onSubmit,
+  error,
+  touched,
+  resetForm,
 }) => {
   const [otpVerified, setOtpVerified] = useState(false);
+  const [otpError, setOtpError] = useState("");
+  const inputRefs = useRef([]);
+  const otpLength = 6;
+  const [otpValue, setOtpValue] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleOtpVerification = (otpVerified, otp) => {
-    const cleanOtp = otp.replace(/['"]+/g, '');  // Clean any quotes
-    if (otpVerified) {
-      setOtpVerified(true);
-      console.log("OTP Verified:", cleanOtp); // Handle successful verification
-      onSubmit({ otp: cleanOtp });
-    } else {
-      console.log("Incorrect OTP:", cleanOtp); // Handle incorrect OTP
-      setOtpVerified(false);
+  const handleInputChange = (index, event) => {
+    const value = event.target.value;
+    const newOtp = Array.from(inputRefs.current).map((input) => input.value);
+    newOtp[index] = value;
+
+    if (value.length === 1 && index < otpLength - 1) {
+      inputRefs.current[index + 1].focus();
+    }
+    if (value.length === 0 && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+
+    const otpValueJoined = newOtp.join("");
+    setOtpValue(otpValueJoined);
+    if (otpValueJoined.length === otpLength) {
+      setOtpError("");
     }
   };
+
+  const handleSubmit = () => {
+    if (otpValue.length < otpLength) {
+      setOtpError("Please fill all OTP fields.");
+      return;
+    }
+
+    setLoading(true);
+
+    setTimeout(() => {
+      if (otpValue === "123456") {
+        setOtpVerified(true);
+        onSubmit({ otp: otpValue });
+      } else {
+        setOtpVerified(false);
+        setOtpError("Invalid OTP.");
+      }
+      setLoading(false);
+      formik.handleSubmit();
+    }, 2000);
+  };
+
+  useEffect(() => {
+    if (resetForm) {
+      setOtpValue("");
+      setOtpVerified(false);
+      setOtpError("");
+      setLoading(false);
+
+      inputRefs.current.forEach((input) => {
+        if (input) input.value = "";
+      });
+    }
+  }, [resetForm]);
 
   return (
     <div
@@ -50,23 +99,50 @@ const OtpVerification = ({
         </div>
       </Stack>
       <Divider className="div-25" />
-      <OtpInput
-        onOtpVerification={handleOtpVerification}
-        error={formik.errors.otp}
-        touched={formik.touched.otp}
-      />
+      <div className="form-container otp-container">
+        {Array.from({ length: otpLength }).map((_, index) => (
+          <input
+            key={index}
+            type="text"
+            className={`form-control ${otpError ? "error-border" : ""}`}
+            maxLength="1"
+            inputMode="numeric"
+            pattern="\d"
+            ref={(el) => (inputRefs.current[index] = el)}
+            onChange={(event) => handleInputChange(index, event)}
+          />
+        ))}
+      </div>
+      {otpError && <div className="error-message">{otpError}</div>}
       <Button
         startIcon={otpVerified ? <CheckRoundIcon /> : ""}
         type="submit"
-        className={`btn ${otpVerified ? "success-button" : ""}`}
+        className={`btn ${otpVerified ? "success-button" : "error-button"}`}
         block
+        disabled={loading || otpValue.length < otpLength}
         style={{
-          backgroundColor: otpVerified ? "#4CAF50" : "",
+          backgroundColor: otpVerified
+            ? "#4CAF50"
+            : loading || otpValue.length < otpLength
+            ? "#b81d24"
+            : "#f44336",
+          cursor:
+            loading || otpValue.length < otpLength ? "not-allowed" : "pointer",
           transition: "background-color 0.3s ease-in-out",
         }}
-        onClick={formik.handleSubmit}
+        onClick={handleSubmit}
       >
-        {otpVerified ? "OTP Verified" : "Verify OTP"}
+        {loading ? (
+          <div className="netflix-loader">
+            <div className="circle"></div>
+            <div className="circle"></div>
+            <div className="circle"></div>
+          </div>
+        ) : otpVerified ? (
+          "OTP Verified"
+        ) : (
+          "Verify OTP"
+        )}
       </Button>
       {resendPass && (
         <p className="refrral-label text-center">

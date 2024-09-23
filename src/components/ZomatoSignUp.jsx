@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import { Button, Divider, Stack } from "rsuite";
 import FloatingLabelInput from "./FloatingLabelInput";
-import { RegisterSchema } from "../Schema/RegisterSchema";
 import "rsuite/dist/rsuite.min.css";
 import OtpVerification from "../components/OtpVerication";
 import { Tabs } from "rsuite";
@@ -12,15 +11,15 @@ import MessageIcon from "@rsuite/icons/Message";
 import { SelectPicker } from "rsuite";
 import { countryData } from "../components/ContryData";
 import * as Yup from "yup";
-import { Input, InputGroup, Whisper, Tooltip } from "rsuite";
 
 const ZomatoSignUp = () => {
   const [signupData, setSignupData] = useState(null); // State to store signup form data
   const [timeLeft, setTimeLeft] = useState(60);
   const [resendPass, setResendPass] = useState(false);
   const [showOtpVerification, setShowOtpVerification] = useState(false);
-  const [actionText, setActionText] = useState("Mail ME OTP");
   const [activeTab, setActiveTab] = useState("1");
+  const [ResetForm, setResetForm] = useState();
+  const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object().shape({
     email:
@@ -35,8 +34,7 @@ const ZomatoSignUp = () => {
       activeTab === "3"
         ? Yup.string().required("Country code is required")
         : Yup.string(),
-        otp: Yup.string()
-        .matches(/^\d{6}$/, "OTP must be exactly 6 digits"),
+    otp: Yup.string().matches(/^\d{6}$/, "OTP must be exactly 6 digits"),
   });
 
   const formik = useFormik({
@@ -93,6 +91,8 @@ const ZomatoSignUp = () => {
 
   const handleBackClick = () => {
     setShowOtpVerification(false);
+    formik.resetForm();
+    setResetForm(true);
   };
 
   const handleEmailTab = () => {
@@ -103,12 +103,15 @@ const ZomatoSignUp = () => {
     setActiveTab("3");
   };
 
+  const handleResetOTP = () => {
+    setResetForm(true);
+  };
+
   const handleOtpSubmit = (otpValues) => {
-    const trimmedOtp = otpValues.trim(); // If otpValues is a string
-    console.log("OTP Values:", trimmedOtp);
-    formik.setFieldValue("otp", otpValues.trim());
+    console.log("OTP Values:", otpValues);
+    formik.setFieldValue("otp", otpValues);
     const combinedData = {
-      ...signupData, // Include the name and email from the signup form
+      ...signupData,
       otp: otpValues.otp, // Include the OTP value
     };
     console.log("Full JSON Data for API:", combinedData);
@@ -121,6 +124,13 @@ const ZomatoSignUp = () => {
     //   body: JSON.stringify(combinedData)
     // });
   };
+
+  useEffect(() => {
+    if (ResetForm) {
+      setResetForm(false);
+      console.log(ResetForm);
+    }
+  }, [ResetForm]);
 
   return (
     <Panel shaded bordered bodyFill className="auth_card">
@@ -165,7 +175,6 @@ const ZomatoSignUp = () => {
                   <Tabs.Tab
                     eventKey="3"
                     title="Text Message(SMS)"
-                    onclick={handlePhoneTab}
                     icon={<MessageIcon />}
                   >
                     <div className="form-container">
@@ -214,8 +223,13 @@ const ZomatoSignUp = () => {
                   </Tabs.Tab>
                 </Tabs>
 
-                <Button type="submit" className="btn" block>
-                  {actionText}
+                <Button
+                  type="submit"
+                  className="btn"
+                  block
+                  onClick={handleResetOTP}
+                >
+                  {activeTab === "1" ? "Send The Mail" : "Send TEXT Message"}
                 </Button>
                 <p className="text-center action-text poppins-regular">
                   <a href="#" className="active cta another-cta">
@@ -232,6 +246,7 @@ const ZomatoSignUp = () => {
               showOtpVerification={showOtpVerification}
               handleBackClick={handleBackClick}
               formik={formik}
+              resetForm={ResetForm}
             />
           </form>
         </div>
